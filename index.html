@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+
+hr {
+ border: 3px solid rgb(191, 191, 191); /* You can adjust the thickness by changing the pixel value */
+ }
+ section {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 40px;
+}
+
+section img {
+ margin-right: 20px;
+ width: 50%;
+ height: 25%;
+}
+
+section p {
+ max-width: 600px;
+ line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+ section {
+ flex-direction: column;
+ text-align: center;
+ }
+
+ section img {
+ margin-right: 0;
+ margin-bottom: 20px;
+ }
+}
+
+ body {
+ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ background-color: #f4f4f4;
+ }
+
+ h1 {
+ text-align: center;
+ padding: 20px 0;
+ }
+
+ .gallery {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ }
+
+ .gallery img {
+ width: 300px;
+ height: 200px;
+ object-fit: cover;
+ margin: 10px;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ transition: transform 0.3s;
+ cursor: pointer;
+ }
+
+ .gallery img:hover {
+ transform: scale(1.1);
+ }
+.container {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+ 
+ img {
+ max-width: 70%;
+ max-height:70%;
+ float: left;
+ }
+ 
+ .text {
+ font-size: 20px;
+ padding-left: 0px;
+ padding-top: 0%;
+ float: right;
+ }
+
+ body, html {
+ margin: 0;
+ padding: 0;
+ overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+ #quote-container {
+ text-align: center;
+ padding: 20px;
+ background-color: #fff;
+ opacity: 0;
+ transition: opacity 0.8s ease;
+ }
+ .quote-dot {
+ display: inline-block;
+ width: 10px;
+ height: 10px;
+ background-color: #888;
+ margin: 0 5px;
+ border-radius: 50%;
+ cursor: pointer;
+ }
+
+ .active-dot {
+ background-color: #000; /* Change color for the active dot */
+ }
+ body {
+ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ background: url('ee17aa3a-1f7e-40aa-98fd-7a190ae38c4c.JPG') center center fixed;
+ background-size: cover;
+ transition: backdrop-filter 0s ease; /* Add transition for smooth backdrop-filter change */
+ }
+
+ .blur {
+ backdrop-filter: blur(5px); /* Initial blur effect */
+ }
+
+ .white-block {
+
+ background-color: white;
+ width: 100%; /* Change width to 100% */
+ height:100%;
+ margin: 0 -9999rem;
+ /* add back negative margin value */
+ padding: 0.25rem 9999rem;
+ margin-top:-20px;
+ justify-content: center;
+ text-align: center;
+}
+ .text-container {
+ margin-bottom: 80px; /* Adjust the value to set the desired space */
+ }
+
+ .text-container2 {
+ margin-bottom: 350px; /* Adjust the value to set the desired space */
+ }
+ .tabs-bar {
+ position:relative;
+ z-index: 10;
+ display: flex;
+ justify-content: center;
+ background-color: #fff;
+ overflow: hidden;
+ box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+ .tab-button {
+ position: relative;
+ float: left;
+ cursor: pointer;
+ padding: 14px 16px;
+ color: #333;
+ font-size: 16px;
+ background-color: #fff;
+ border: none;
+ outline: none;
+ transition: color 0.3s;
+ }
+
+ .tab-button:hover {
+ color: #acacac;
+ }
+
+ .tab-button::after {
+ content: "";
+ display: block;
+ position: absolute;
+ left: 50%;
+ width: 0;
+ height: 3px;
+ background-color: #888;
+ transition: all 0.3s ease-in-out;
+ bottom: 15px; /* Adjust this value to move the line up */
+ }
+
+ .tab-button.active-tab {
+ color: #555;
+ 
+ }
+
+ .tab-button.active-tab::after {
+ width: 100%;
+ left: 0;
+ background-color: #555;
+ bottom: 15px; /* Adjust this value to move the line up */
+ }
+
+ .tab {
+ display: none;
+ padding: 20px;
+ text-align: center;
+ }
+
+ .active-tab {
+ display: block;
+ }
+ </style>
+ <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+ var quotes = [
+ { text: "An outstanding musician", author: "Heli Ignatius-Fleet, his old piano teacher" },
+ ];
+
+ var quoteIndex = 0;
+ var quoteContainer = document.getElementById('quote-container');
+ var quoteDotsContainer = document.getElementById('quote-dots');
+
+ function changeQuote() {
+ quoteContainer.style.opacity = 0;
+
+ setTimeout(function () {
+ quoteIndex = (quoteIndex + 1) % quotes.length;
+ var currentQuote = quotes[quoteIndex];
+
+ // Customize font, color, and style here
+ quoteContainer.innerHTML = `<p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 30px; color: #000;">"${currentQuote.text}"</p><p style="font-size: 16px; color: #888;">- ${currentQuote.author}</p>`;
+ quoteContainer.style.opacity = 1;
+
+ updateQuoteDots();
+ }, 600); // Adjust the duration of the transition
+ }
+
+ // Initial quote
+ updateQuoteDots(); // Call this before changeQuote
+ changeQuote();
+
+ // Change quote every 5 seconds (adjust as needed)
+ setInterval(changeQuote, 6000);
+
+ function updateQuoteDots() {
+ quoteDotsContainer.innerHTML = '';
+
+ for (var i = 0; i < quotes.length; i++) {
+ var dot = document.createElement('div');
+ dot.classList.add('quote-dot');
+ if (i === quoteIndex) {
+ dot.classList.add('active-dot');
+ }
+
+ dot.setAttribute('data-index', i);
+ dot.addEventListener('click', function () {
+ quoteIndex = parseInt(this.getAttribute('data-index'), 10);
+ changeQuote();
+ });
+
+ quoteDotsContainer.appendChild(dot);
+ }
+ }
+});
+
+
+
+ document.addEventListener("DOMContentLoaded", function () {
+ var body = document.body;
+
+ window.addEventListener("scroll", function () {
+ var scrollPosition = window.scrollY;
+ var blurValue = Math.min(scrollPosition / 50, 10); // Adjust the divisor for the blur effect intensity
+
+ // Set backdrop-filter based on scroll position
+ body.style.backdropFilter = `blur(${blurValue}px)`;
+ });
+ });
+
+ function openTab(tabName) {
+ var i, tabs;
+ tabs = document.getElementsByClassName("tab");
+ for (i = 0; i < tabs.length; i++) {
+ tabs[i].style.display = "none";
+ }
+ document.getElementById(tabName).style.display = "block";
+ 
+ var buttons = document.getElementsByClassName("tab-button");
+ for (i = 0; i < buttons.length; i++) {
+ buttons[i].classList.remove("active-tab");
+ }
+ document.getElementById(tabName + "-button").classList.add("active-tab");
+ }
+ </script>
+ </head>
+<body>
+
+ <div class="tabs-bar">
+
+ 
+
+ <span class="tab-button"onclick="openTab('tab1')" id="tab0-button"></button>
+ Luca Newman<br>
+ <div style="text-align: center;">
+ <span style="font-size: smaller; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Pianist</span>
+ </div>
+ 
+ </span>
+ <button class="tab-button active-tab" onclick="openTab('tab1')" id="tab1-button">Home</button>
+ <button class="tab-button" onclick="openTab('tab2')" id="tab2-button">About</button>
+ <button class="tab-button" onclick="openTab('tab3')" id="tab3-button">Concerts</button>
+ <button class="tab-button" onclick="openTab('tab4')" id="tab4-button">Contact</button>
+ </div>
+ 
+ <div id="tab1" class="tab active-tab">
+
+ <div class="text-container"></div>
+ 
+ <h1 style="color: #ffffff;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Luca Newman</h1>
+
+ <p style="color: #ffffff;">Composer & Pianist</p>
+ <div class="text-container2"></div>
+
+
+ 
+ <div class="white-block">
+ <div id="quote-container"></div>
+ <div id="quote-dots"></div>
+ <hr>
+ <div class="text-container"></div>
+ <div class="container">
+ <div class="image">
+ <img src="af8fac85-274c-4f64-9c61-a5d2a154d2c8.JPG">
+ </div>
+
+ <div class="text-container"></div>
+
+ <button class="tab-button" onclick="openTabAndScrollToTop('tab3')" id="tab3-button" style="font-size: 30px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight: bold;">Up and Coming Concerts ></button>
+
+ <script>
+ function openTabAndScrollToTop(tabId) {
+ openTab(tabId); // Call the openTab function with the specified tabId
+ window.scrollTo(0, 0); // Scrolls to the top of the page
+ }
+ </script>
+ 
+ 
+
+
+
+ </div>
+ <div class="text-container"></div>
+ <hr>
+ <p style="font-size: 25px;">Gallery:</p>
+
+ <div class="gallery">
+ <img src="ee17aa3a-1f7e-40aa-98fd-7a190ae38c4c.JPG" alt="Image 1">
+ <img src="ec2fa34c-ce2b-456e-bdec-805736ee6eba.JPG" alt="Image 2">
+ <!-- Add more images as needed -->
+ </div>
+ <br><hr><p style="font-size: 20px; text-align: center;">© 2024 Luca Newman. All rights reserved.<br>A Website by <a style="text-decoration: none;" href="https://www.edtait.com/"><b>Edward Tait</b></a></p><hr><br>
+ </div>
+
+ 
+ </div>
+ 
+ <div id="tab2" class="tab">
+ <div class="white-block">
+
+ 
+ <body>
+ <div class="gallery">
+ <img src="ec2fa34c-ce2b-456e-bdec-805736ee6eba.JPG" alt="Image 2">
+ <br><p class="biography">Hello, this is Luca Newman, I am 14 years old. My father is a piano technician who builds pianos. Although he can play the piano well enough to perform in public, he cannot read music, so how I learned the piano at first was by ear and we were enjoying playing together everyday. Just before turning eight years old, I had my first piano lesson to learn to read music. I was fascinated by the patterns of notes and bought the Chopin Etudes for myself which were my favourite compositions listening to the CD. I realised that the classical music that I loved listening to on the radio were all in the books. My parents bought me many sheet music books whenever I found pieces that I liked and I read them like a story book whenever I had time everyday. Around that time, I started composing too.</p>
+ <br><p class="biography">I applied to the Purcell Music school when I was ten and passed the first studies in both the keyboard and composition departments. On the open day at the school, I showed my composition notebooks to students who were already studying at the school. One of them was surprised and said "Are you Mozart?!" as I could compose without using any instruments but just in my head. I was thrilled to be chosen to compose an orchestral piece for the school orchestral last year and the piece is was performed in March.</p>
+ <br><p class="biography">I have entered six international piano competitions and was awarded second prize twice, and four first prizes including the Piano Talents International Competition in Milan in June 2023. I have performed some public concerts and had my solo recital in Romania when I was 12 which was broadcast on the National radio. I also performed my first piano concerto (Mendelssohn piano concerto no 1 opus 25) with a full orchestra in 2023.</p>
+ </body>
+ 
+ </div>
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2023</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+ 
+ </div>
+ 
+ 
+ <div id="tab3" class="tab">
+ <div class="white-block">
+
+
+ <p class="biography"><b>Concerts</b></p>
+ <p>"Evening Recital" at The Purcell School &nbsp; | &nbsp; 7pm, Recital Room, Purcell School</p>
+ <p><a href="https:www.google.com/">Click here to find out more ></a></p>
+
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2023</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+ </div>
+ 
+ <div id="tab4" class="tab">
+ <div class="white-block">
+ 
+
+ 
+ <p class="biography"><b>Contacts</b></p>
+ <br><a style="text-decoration: none;" href="mailto:hermed.pianista@gmail.com"><b>hermed.pianista@gmail.com</b></a><br><a style="text-decoration: none;" href="tel:03714498812"><b>03714 498812</b></a><br><a style="text-decoration: none;" href="https://www.facebook.com/herman.med/">or message me on <b>Facebook</b></a><br><a style="text-decoration: none;" href="https://www.youtube.com/@lucanewman/">or check out my <b>YouTube channel</b></a></p>
+ <br><hr><p style="font-size: 20px; text-align: center;">Copyright © <b>2023</b><br>Developed by <a style="text-decoration: none;" href="https://www.instagram.com/eypwebsites/"><b>EYP Websites</b></a></p><hr><br>
+ </div>
+ </div>
+ 
+ </body>
+ </html>
