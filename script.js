@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Quote rotation
     const quotes = [
       { text: "An outstanding musician", author: "Heli Ignatius-Fleet" },
-      { text: "Talanted young musician", author: "Florian Mitrea" },
+      { text: "Talented young musician", author: "Florian Mitrea" },
       { text: "Lots of potential", author: "Andreas Flölich" },
     ];
   
